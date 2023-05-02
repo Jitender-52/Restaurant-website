@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import "./Style.css";
 import Menu from "./menuApi";
 import MenuCard from "./MenuCard";
+import Navbar from "./Navbar";
 
 const uniqueList = [...new Set( Menu.map((curElem) => {
   return curElem.category;
     })
   ),
   "All",
-];
+]
 
-console.log(uniqueList);
+// console.log(uniqueList);
 
 const Resturant = () => {
   const [menuData, setMenuData] = useState(Menu);
+  const [menuList, setMenuList] = useState(uniqueList);
 
   const filterItem = (category) =>{
     if(category === "All")
@@ -24,7 +26,7 @@ const Resturant = () => {
       {
           return curElem.category === category;
       });
-        setMenuData(updatedList);
+      setMenuData(updatedList);
   };
 
   // const filterAll = () =>{
@@ -36,25 +38,8 @@ const Resturant = () => {
 
   return (
     <>
-      <nav className="navbar">
-        <div className="btn-group">
-
-        {uniqueList.map((curElem) =>{
-          return (
-            <>
-              <button className="btn-group__item" onClick={()=> filterItem(curElem)}>{curElem}</button>
-            </>
-          )
-        })};       
-
-          {/* <button className="btn-group__item" onClick={()=> filterItem("breakfast")}>Breakfast</button>
-          <button className="btn-group__item" onClick={() => filterItem("lunch")}>Lunch</button>
-          <button className="btn-group__item" onClick={() => filterItem("evening")}>Evening</button>
-          <button className="btn-group__item" onClick={()=> filterItem("dinner")}>Dinner</button>
-          <button className="btn-group__item" onClick={()=> setMenuData(Menu)}>All</button> */}
-          {/* <button className="btn-group__item" onClick={()=> filterAll()}>All</button> */}
-        </div>
-      </nav>
+      {/* <Navbar filterItem={filterItem} uniqueList={uniqueList} /> */}
+      <Navbar filterItem={filterItem} menuList={menuList} />
       <MenuCard menuData={menuData} />
     </>
   );
